@@ -15,18 +15,18 @@ btn.addEventListener('click',function(){
             let countries =  JSON.parse(this.response)
             // console.log(countries)
 
-            countries.forEach(async country => {
+            countries.forEach(country => {
                 // console.log(country.flags.png)
                 const countryCard = document.createElement('div')
                 countryCard.classList.add('card')
 
                 const countryName = document.createElement('div')
                 countryName.classList.add('card-body')
-                countryName.textContent = await country.name.common
+                countryName.textContent = country.name.common
 
                 const flag = document.createElement('img')
                 flag.classList.add('card-img-top')
-                flag.src = await country.flags.png
+                flag.src = country.flags.png
 
                 const col = document.createElement('div')
                 col.classList.add('col')
@@ -45,14 +45,14 @@ btn.addEventListener('click',function(){
     xhr.send()
 })
 
-
+// FOR SEARCH
 const searchBtn = document.querySelector("#searchInput");
 
 searchBtn.addEventListener('keyup',function(){
 
     result.innerHTML = null
 
-    const word = this.value;
+    const word = this.value[0].toUpperCase() + this.value.slice(1,this.value.length);
 
     // console.log(word);
 
@@ -68,7 +68,8 @@ searchBtn.addEventListener('keyup',function(){
 
             countries.forEach(country=>{
 
-                if(word == country.name.common){
+                // if(word == country.name.common){
+                if(country.name.common.startsWith(word)){
                     
                     const countryCard = document.createElement('div')
                     countryCard.classList.add('card')
@@ -100,3 +101,4 @@ searchBtn.addEventListener('keyup',function(){
 
     countryApi.send()
 })
+
